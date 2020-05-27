@@ -3,9 +3,9 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 
 #Developer defined
-from process_text import clean_text
-from text_classification import find_sentiment
-from linear_regression_housingprice import predict_housing_price, housing_price_model_details
+from nlp.process_text import clean_text
+from nlp.text_classification import find_sentiment
+from lrm.linear_regression_housingprice import predict_housing_price, housing_price_model_details
 
 
 app = Flask(__name__)
