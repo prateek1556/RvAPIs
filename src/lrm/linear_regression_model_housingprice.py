@@ -60,7 +60,7 @@ with open('linear_regression.pickle','rb') as f:
 
 print(linear_reg.intercept_)
 
-coeff_df = pd.DataFrame(linear_reg.coef_,X_test_LR.columns,columns=['Coefficient'])
+coeff_df = pd.DataFrame(linear_reg.coef_,X_names_LR.columns,columns=['Coefficient'])
 print(coeff_df)
 coeff_df.to_json (r'coeff_df_DataFrame.json')
 print(type(coeff_df))
