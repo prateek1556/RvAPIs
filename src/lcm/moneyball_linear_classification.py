@@ -37,6 +37,20 @@ def predict_matches_win(rs,ra):
         percentage_season_qualify = 0
     
     return total_wins_season, percentage_season_qualify
+
+def moneyball_model_details():
+    X = open('lcm/models/X_col_names_LC_diff.pickle','rb')
+    X_names_LC_diff = pickle.load(X)
+    
+    with open('lcm/models/linear_classification_diff.pickle','rb') as f:
+        linear_cls_diff = pickle.load(f)
+        
+    
+    return linear_cls_diff.intercept_, linear_cls_diff.coef_
+        
+        
+        
+    
     
     
     
