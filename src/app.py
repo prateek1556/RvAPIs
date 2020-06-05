@@ -7,7 +7,7 @@ from nlp.process_text import clean_text
 from nlp.text_classification import find_sentiment
 from lrm.linear_regression_housingprice import predict_housing_price, housing_price_model_details
 from lcm.moneyball_linear_classification import predict_runs_scored, predict_runs_allowed, predict_matches_win, moneyball_model_details
-from framingham_chd_logistic_regression import find_framingham_chd_prediction, framingham_model_details
+from logrm.framingham_chd_logistic_regression import find_framingham_chd_prediction, framingham_model_details
 
 
 app = Flask(__name__)
@@ -86,7 +86,9 @@ class LOG_framingham(Resource):
         return {"CoronaryHeartDisease":pred_chd_tenyears[0]}
         
         
-    #def get(self):
+    def get(self):
+        Accuracy, TN, FP, FN, TP = framingham_model_details()
+        return {"Accuracy":float(Accuracy), "TN":float(TN), "FP":float(FP), "FN":float(FN), "TP":float(TP)}
         
 
 api.add_resource(TextAnalysis,'/cleandata')
