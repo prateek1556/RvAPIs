@@ -7,6 +7,7 @@ from nlp.process_text import clean_text
 from nlp.text_classification import find_sentiment
 from lrm.linear_regression_housingprice import predict_housing_price, housing_price_model_details
 from lcm.moneyball_linear_classification import predict_runs_scored, predict_runs_allowed, predict_matches_win, moneyball_model_details
+from framingham_chd_logistic_regression import find_framingham_chd_prediction, framingham_model_details
 
 
 app = Flask(__name__)
@@ -59,12 +60,39 @@ class LC_Moneyball(Resource):
         intercept,coff = moneyball_model_details()
         return{'intercept':intercept,'cofficient':{'RunDifference':coff[0]}}
         
+
+class LOG_framingham(Resource):
+    def post(self):
+        data = request.get_json()
         
+        male = float(data['Gender'])
+        age = float(data['Age'])
+        education = float(data['Education'])
+        currentSmoker = float(data['Smoking'])
+        cigsPerDay = float(data['BigarettesPerDay'])
+        BPMeds = float(data['BloodPressureMedication'])
+        prevalentStroke = float(data['PrevelentStroke'])
+        prevalentHyp = float(data['PrevalentHypertension'])
+        diabetes = float(data['Diabetes'])
+        totChol = float(data['TotalCholesterol'])
+        sysBP = float(data['SystolicBloodPressure'])
+        diaBP = float(data['DiabeticBloodPressure'])
+        BMI = float(data['BodyMassIndex'])
+        heartRate = float(data['HeartRate'])
+        glucose = float(data['Glucose'])
+        
+        pred_chd_tenyears = find_framingham_chd_prediction(male, age, education, currentSmoker,cigsPerDay, BPMeds, prevalentStroke, prevalentHyp, diabetes, totChol, sysBP, diaBP, BMI, heartRate, glucose).tolist()
+        
+        return {"CoronaryHeartDisease":pred_chd_tenyears[0]}
+        
+        
+    #def get(self):
         
 
 api.add_resource(TextAnalysis,'/cleandata')
 api.add_resource(LR_HousingPrice,'/lrmodel')
 api.add_resource(LC_Moneyball,'/lcmodel')
+api.add_resource(LOG_framingham,'/logmodel')
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True) # it is although default

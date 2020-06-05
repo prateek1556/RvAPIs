@@ -26,7 +26,7 @@ def predict_matches_win(rs,ra):
     total_wins_season = linear_cls_diff.predict([[runs]])
          
     if total_wins_season >= 100:   
-        percentage_season_qualify = 100   # 95 game-94.73% , 85 games-77.27%, 80 game - 6.6%, 0-80 games 0%
+        percentage_season_qualify = 99   # 95 game-94.73% , 85 games-77.27%, 80 game - 6.6%, 0-80 games 0%
     elif total_wins_season >= 95 and total_wins_season < 100:
         percentage_season_qualify = 94.73
     elif total_wins_season >= 85 and total_wins_season < 95:
